@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{35E8F443-99A5-4F12-AB8E-379331F3A2AC}</ProjectGuid>
+    <RootNamespace>IBTestClient</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AcctUpdatesDlg.cpp" />
+    <ClCompile Include="client2.cpp" />
+    <ClCompile Include="client2Dlg.cpp" />
+    <ClCompile Include="DlgAccount.cpp" />
+    <ClCompile Include="DlgAccountSummary.cpp" />
+    <ClCompile Include="DlgAlgoParams.cpp" />
+    <ClCompile Include="DlgComboLegs.cpp" />
+    <ClCompile Include="DlgConnect.cpp" />
+    <ClCompile Include="DlgExtOrd.cpp" />
+    <ClCompile Include="DlgFAAllocationInfo.cpp" />
+    <ClCompile Include="DlgFinancialAdvisor.cpp" />
+    <ClCompile Include="DlgGroups.cpp" />
+    <ClCompile Include="DlgLogConfig.cpp" />
+    <ClCompile Include="DlgMktDepth.cpp" />
+    <ClCompile Include="DlgNewsBulletins.cpp" />
+    <ClCompile Include="DlgOrder.cpp" />
+    <ClCompile Include="DlgScanner.cpp" />
+    <ClCompile Include="DlgSmartComboRoutingParams.cpp" />
+    <ClCompile Include="DlgUnderComp.cpp" />
+    <ClCompile Include="RptFilterDlg.cpp" />
+    <ClCompile Include="StdAfx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AcctUpdatesDlg.h" />
+    <ClInclude Include="client2.h" />
+    <ClInclude Include="client2Dlg.h" />
+    <ClInclude Include="DlgAccount.h" />
+    <ClInclude Include="DlgAccountSummary.h" />
+    <ClInclude Include="DlgAlgoParams.h" />
+    <ClInclude Include="DlgComboLegs.h" />
+    <ClInclude Include="DlgConnect.h" />
+    <ClInclude Include="DlgExtOrd.h" />
+    <ClInclude Include="DlgFAAllocationInfo.h" />
+    <ClInclude Include="DlgFinancialAdvisor.h" />
+    <ClInclude Include="DlgGroups.h" />
+    <ClInclude Include="DlgLogConfig.h" />
+    <ClInclude Include="DlgMktDepth.h" />
+    <ClInclude Include="DlgNewsBulletins.h" />
+    <ClInclude Include="DlgOrder.h" />
+    <ClInclude Include="DlgScanner.h" />
+    <ClInclude Include="DlgSmartComboRoutingParams.h" />
+    <ClInclude Include="DlgUnderComp.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="RptFilterDlg.h" />
+    <ClInclude Include="StdAfx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="client2.aps" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="client2.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
