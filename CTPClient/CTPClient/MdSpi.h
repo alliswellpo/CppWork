@@ -2,10 +2,20 @@
 
 #include "ThostFtdcMdApi.h"
 //#include "ThostFtdcTraderApi.h"
-
-
+#define WM_RECVDATA WM_USER+1
+struct Prices
+{
+	double bid = 0.0;
+	double ask = 0.0;
+};
 class CMdSpi : public CThostFtdcMdSpi//, public CThostFtdcTraderSpi
 {
+public:
+	CMdSpi(HWND hwnd)
+	{
+		m_hwnd = hwnd;
+	}
+	HWND m_hwnd;
 public:
 	///当客户端与交易后台建立起通信连接时（还未登录前），该方法被调用。
 	virtual void OnFrontConnected();

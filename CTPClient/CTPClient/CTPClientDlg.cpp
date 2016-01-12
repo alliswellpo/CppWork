@@ -29,6 +29,7 @@ BEGIN_MESSAGE_MAP(CCTPClientDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_INIT_CONNECT, &CCTPClientDlg::OnBnClickedInitConnect)
+	ON_MESSAGE(WM_RECVDATA, &OnRecvData)
 END_MESSAGE_MAP()
 
 
@@ -91,13 +92,7 @@ void CCTPClientDlg::OnBnClickedInitConnect()
 	// TODO: Add your control notification handler code here
 	if (!bConnected)
 	{
-		pUserSpi = new CMdSpi();
-		char FRONT_ADDR[] = "tcp://asp-sim2-md1.financial-trading-platform.com:26213";
-		pUserApi = CThostFtdcMdApi::CreateFtdcMdApi("", true, false);
-		pUserApi->RegisterSpi(pUserSpi);
-		pUserApi->RegisterFront(FRONT_ADDR);
-		pUserApi->Init();
-		pUserApi->Join();
+		HANDLE hThread = CreateThread(NULL, 0, CTPMdProc, (LPVOID)m_hWnd, 0, NULL);
 		bConnected = true;
 	}
 	else
@@ -105,4 +100,30 @@ void CCTPClientDlg::OnBnClickedInitConnect()
 		CString str = _T("Already connected!!");
 		MessageBox(str);
 	}
+}
+
+DWORD WINAPI CCTPClientDlg::CTPMdProc(LPVOID lpParameter)
+{
+	CThostFtdcMdSpi *pUserSpi = new CMdSpi((HWND)lpParameter);
+	char FRONT_ADDR[] = "tcp://asp-sim2-md1.financial-trading-platform.com:26213";
+	CThostFtdcMdApi *pUserApi = CThostFtdcMdApi::CreateFtdcMdApi("", true, false);
+	pUserApi->RegisterSpi(pUserSpi);
+	pUserApi->RegisterFront(FRONT_ADDR);
+	pUserApi->Init();
+	pUserApi->Join();
+	return 0;
+}
+
+LRESULT CCTPClientDlg::OnRecvData(WPARAM wParam, LPARAM lParam)
+{
+	if (wParam == 0)
+	{
+		Prices* price = (Prices*)(lParam);
+	}
+	else if (wParam == 1)
+	{
+		CString str = (char*)lParam;
+		MessageBox(str);
+	}
+	return TRUE;
 }
