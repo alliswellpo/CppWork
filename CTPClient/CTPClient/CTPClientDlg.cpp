@@ -15,7 +15,7 @@
 // CCTPClientDlg dialog
 
 CCTPClientDlg::CCTPClientDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(CCTPClientDlg::IDD, pParent)
+: CDialogEx(CCTPClientDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -29,7 +29,7 @@ BEGIN_MESSAGE_MAP(CCTPClientDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_INIT_CONNECT, &CCTPClientDlg::OnBnClickedInitConnect)
-	ON_MESSAGE(WM_RECVDATA, &OnRecvData)
+	ON_MESSAGE(WM_RECTRADERVDATA, &OnRecvTraderData)
 END_MESSAGE_MAP()
 
 
@@ -92,7 +92,8 @@ void CCTPClientDlg::OnBnClickedInitConnect()
 	// TODO: Add your control notification handler code here
 	if (!bConnected)
 	{
-		HANDLE hThread = CreateThread(NULL, 0, CTPMdProc, (LPVOID)m_hWnd, 0, NULL);
+		HANDLE hThreadMd = CreateThread(NULL, 0, CTPMdProc, (LPVOID)m_hWnd, 0, NULL);
+		HANDLE hThreadTrader = CreateThread(NULL, 0, CTPTraderProc, (LPVOID)m_hWnd, 0, NULL);
 		bConnected = true;
 	}
 	else
@@ -104,17 +105,45 @@ void CCTPClientDlg::OnBnClickedInitConnect()
 
 DWORD WINAPI CCTPClientDlg::CTPMdProc(LPVOID lpParameter)
 {
-	CThostFtdcMdSpi *pUserSpi = new CMdSpi((HWND)lpParameter);
+	CThostFtdcMdApi *pUserMdApi = CThostFtdcMdApi::CreateFtdcMdApi("", true, false);
+	CThostFtdcMdSpi *pUserMdSpi = new CMdSpi((HWND)lpParameter, pUserMdApi);
 	char FRONT_ADDR[] = "tcp://asp-sim2-md1.financial-trading-platform.com:26213";
-	CThostFtdcMdApi *pUserApi = CThostFtdcMdApi::CreateFtdcMdApi("", true, false);
-	pUserApi->RegisterSpi(pUserSpi);
-	pUserApi->RegisterFront(FRONT_ADDR);
-	pUserApi->Init();
-	pUserApi->Join();
+	pUserMdApi->RegisterSpi(pUserMdSpi);
+	pUserMdApi->RegisterFront(FRONT_ADDR);
+	pUserMdApi->Init();
+	pUserMdApi->Join();
 	return 0;
 }
 
-LRESULT CCTPClientDlg::OnRecvData(WPARAM wParam, LPARAM lParam)
+DWORD WINAPI CCTPClientDlg::CTPTraderProc(LPVOID lpParameter)
+{
+	CThostFtdcTraderApi *pUserTraderApi = CThostFtdcTraderApi::CreateFtdcTraderApi();
+	CThostFtdcTraderSpi *pUserTraderSpi = new CTraderSpi((HWND)lpParameter, pUserTraderApi);
+	char FRONT_ADDR[] = "tcp://asp-sim2-front1.financial-trading-platform.com:26205";
+	pUserTraderApi->RegisterSpi((CThostFtdcTraderSpi*)pUserTraderSpi);	// 注册事件类
+	pUserTraderApi->SubscribePublicTopic(THOST_TERT_QUICK);				// 注册公有流
+	pUserTraderApi->SubscribePrivateTopic(THOST_TERT_QUICK);			// 注册私有流
+	pUserTraderApi->RegisterFront(FRONT_ADDR);							// connect
+	pUserTraderApi->Init();
+	pUserTraderApi->Join();
+	return 0;
+}
+
+LRESULT CCTPClientDlg::OnRecvMdData(WPARAM wParam, LPARAM lParam)
+{
+	if (wParam == 0)
+	{
+		Prices* price = (Prices*)(lParam);
+	}
+	else if (wParam == 1)
+	{
+		CString str = (char*)lParam;
+		MessageBox(str);
+	}
+	return TRUE;
+}
+
+LRESULT CCTPClientDlg::OnRecvTraderData(WPARAM wParam, LPARAM lParam)
 {
 	if (wParam == 0)
 	{

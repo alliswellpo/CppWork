@@ -3,20 +3,24 @@
 #include "stdafx.h"
 #include "MdSpi.h"
 
+CMdSpi::CMdSpi(HWND hwnd, CThostFtdcMdApi *pMdUserApi)
+{
+	m_hwnd = hwnd;
+	m_pMdUserApi = pMdUserApi;
+}
+CMdSpi::~CMdSpi()
+{
+	if (m_pMdUserApi)
+	{
+		m_pMdUserApi->RegisterSpi(NULL);
+		m_pMdUserApi->Release();
+		m_pMdUserApi = NULL;
+	}
+}
+
 void CMdSpi::OnFrontConnected()
 {
-	char msg[] = "Connect Successfully!!";
-	Prices* price = new Prices();
-	price->ask = 0.0;
-	price->bid = 0.0;
-	
-	// Synchronous 
-	::SendMessage(m_hwnd, WM_RECVDATA, 0, (LPARAM)price);
-	::SendMessage(m_hwnd, WM_RECVDATA, 1, (LPARAM)msg);
-
-	// Asynchronous
-	//::PostMessage(m_hwnd, WM_RECVDATA, 0, (LPARAM)price);
-	//::PostMessage(m_hwnd, WM_RECVDATA, 1, (LPARAM)msg);
+	::AfxMessageBox("MD Front Connect Successfully!");
 }
 
 ///当客户端与交易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。
@@ -28,7 +32,7 @@ void CMdSpi::OnFrontConnected()
 ///        0x2003 收到错误报文
 void CMdSpi::OnFrontDisconnected(int nReason)
 {
-	
+
 }
 
 ///心跳超时警告。当长时间未收到报文时，该方法被调用。
