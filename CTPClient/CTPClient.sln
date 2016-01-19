@@ -7,6 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CTPClient", "CTPClient\CTPC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Includes", "Includes", "{11BB9F53-F65A-4739-8D57-699D21E3CCD7}"
 	ProjectSection(SolutionItems) = preProject
+		Includes\Log.h = Includes\Log.h
 		Includes\ThostFtdcMdApi.h = Includes\ThostFtdcMdApi.h
 		Includes\ThostFtdcTraderApi.h = Includes\ThostFtdcTraderApi.h
 		Includes\ThostFtdcUserApiDataType.h = Includes\ThostFtdcUserApiDataType.h

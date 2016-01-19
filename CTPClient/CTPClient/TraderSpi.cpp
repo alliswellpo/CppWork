@@ -2,6 +2,7 @@
 
 #include "stdafx.h"
 #include "TraderSpi.h"
+#include "Log.h"
 
 CTraderSpi::CTraderSpi(HWND hwnd, CThostFtdcTraderApi *pTraderUserApi)
 {
@@ -20,7 +21,7 @@ CTraderSpi::~CTraderSpi()
 ///当客户端与交易后台建立起通信连接时（还未登录前），该方法被调用。
 void CTraderSpi::OnFrontConnected()
 {
-	::AfxMessageBox("Trader Front Connect Successfully!");
+	LOG("Trader Front Connect Successfully!");
 }
 
 ///当客户端与交易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。

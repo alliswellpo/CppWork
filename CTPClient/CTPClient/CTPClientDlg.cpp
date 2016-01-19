@@ -107,7 +107,9 @@ DWORD WINAPI CCTPClientDlg::CTPMdProc(LPVOID lpParameter)
 {
 	CThostFtdcMdApi *pUserMdApi = CThostFtdcMdApi::CreateFtdcMdApi("", true, false);
 	CThostFtdcMdSpi *pUserMdSpi = new CMdSpi((HWND)lpParameter, pUserMdApi);
-	char FRONT_ADDR[] = "tcp://asp-sim2-md1.financial-trading-platform.com:26213";
+	//char FRONT_ADDR[] = "tcp://asp-sim2-md1.financial-trading-platform.com:26213"; //上期模拟
+	char FRONT_ADDR[] = "tcp://180.166.65.114:41213"; //招商证券
+	//char FRONT_ADDR[] = "tcp://222.66.235.70:61213";//申银万国
 	pUserMdApi->RegisterSpi(pUserMdSpi);
 	pUserMdApi->RegisterFront(FRONT_ADDR);
 	pUserMdApi->Init();
@@ -119,7 +121,9 @@ DWORD WINAPI CCTPClientDlg::CTPTraderProc(LPVOID lpParameter)
 {
 	CThostFtdcTraderApi *pUserTraderApi = CThostFtdcTraderApi::CreateFtdcTraderApi();
 	CThostFtdcTraderSpi *pUserTraderSpi = new CTraderSpi((HWND)lpParameter, pUserTraderApi);
-	char FRONT_ADDR[] = "tcp://asp-sim2-front1.financial-trading-platform.com:26205";
+	//char FRONT_ADDR[] = "tcp://asp-sim2-front1.financial-trading-platform.com:26205"; //上期模拟
+	char FRONT_ADDR[] = "tcp://180.166.65.114:41205";  //招商证券
+	//char FRONT_ADDR[] = "tcp://222.66.235.70:61205"; //申银万国
 	pUserTraderApi->RegisterSpi((CThostFtdcTraderSpi*)pUserTraderSpi);	// 注册事件类
 	pUserTraderApi->SubscribePublicTopic(THOST_TERT_QUICK);				// 注册公有流
 	pUserTraderApi->SubscribePrivateTopic(THOST_TERT_QUICK);			// 注册私有流

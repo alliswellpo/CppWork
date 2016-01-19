@@ -31,4 +31,8 @@ public:
 public:
 	HWND m_hwnd;
 	CThostFtdcMdApi *m_pMdUserApi;
+	void ReqUserLogin();
+	bool IsErrorRspInfo(CThostFtdcRspInfoField *pRspInfo);
+	void SubscribeMarketData();
+	void SubscribeForQuoteRsp();
 };
