@@ -4,6 +4,7 @@
 
 #include "MdSpi.h"
 #include "TraderSpi.h"
+
 // CCTPClientDlg dialog
 class CCTPClientDlg : public CDialogEx
 {
